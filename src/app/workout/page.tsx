@@ -25,7 +25,7 @@ const getWorkouts = async (): Promise<IWorkout[]> => {
   }
 };
 
-export default async function Library() {
+export default async function Workout() {
   const workouts = await getWorkouts();
 
   console.log("Workouts in Library:", workouts);
