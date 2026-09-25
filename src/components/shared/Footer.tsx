@@ -1,7 +1,20 @@
+import footer from "@/assets/footer.png";
+import Image from "next/image";
+
 export default function Footer() {
   return (
-    <div className="max-w-4xl mx-auto py-10 px-6">
-      <h1 className="text-4xl font-bold text-center mb-6">This is PageName</h1>
-    </div>
+    <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4">
+      <aside className="grid-flow-col items-center">
+      
+       <div className="flex items-center">
+        <Image src={footer} alt="logo" width={50} height={50} />
+       <h1 className="text-lg font-bold ml-3">FITLOG</h1>
+       </div>
+      </aside>
+      <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+        <p>© {new Date().getFullYear()} FitLog - Workout Library. Train hard, log honest.</p>
+      
+      </nav>
+    </footer>
   );
 }
