@@ -51,7 +51,9 @@ export default function Navbar() {
         </div>
         <div className="flex items-center">
           <Image src={logo} alt="logo" width={50} height={50} />
-          <h1 className="text-lg font-bold ml-3">FITLOG</h1>
+          <Link href="/">
+            <h1 className="text-lg font-bold ml-3">FITLOG</h1>
+          </Link>
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
