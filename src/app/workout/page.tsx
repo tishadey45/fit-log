@@ -31,12 +31,12 @@ export default async function Workout() {
   console.log("Workouts in Library:", workouts);
 
   return (
-    <section>
+    <section className="container mx-auto mt-10 mb-20 ">
       <h2 className="text-3xl font-bold md:text-4xl">THE LIBRARY</h2>
 
       <p>Twelve lifts covering every major muscle group.</p>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mt-7">
         {workouts.map((workout) => (
           <LibraryCard key={workout.id} workout={workout} />
         ))}

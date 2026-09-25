@@ -4,7 +4,8 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <nav className=" sticky top-0 z-50">
+      <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -56,7 +57,7 @@ export default function Navbar() {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link href="/work-outs">Workouts</Link>
+            <Link href="/workout">Workouts</Link>
           </li>
 
           <li>
@@ -69,5 +70,6 @@ export default function Navbar() {
         <a className="btn btn-primary">Saved</a>
       </div>
     </div>
+    </nav>
   );
 }
