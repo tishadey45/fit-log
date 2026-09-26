@@ -4,10 +4,16 @@ import logo from "@/assets/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { usePlan } from "@/context/PlanContext";
+import { usePathname } from "next/navigation";
+
+
 
 export default function Navbar() {
   const { plannedWorkouts, savedWorkouts } = usePlan();
+ const pathname = usePathname();
 
+  const isWorkoutsActive = pathname === "/";
+  const isMyPlanActive = pathname === "/my-plan";
   return (
     <nav className="sticky top-0 z-50">
       <div className="navbar bg-base-100 shadow-sm px-4 lg:px-8">
@@ -42,15 +48,16 @@ export default function Navbar() {
               tabIndex={-1}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
             >
-              <li>
-                <Link href="/">
+                <li>
+                <Link
+                  href="/"
+                  className={
+                    isWorkoutsActive
+                      ? "btn text-lime-500 bg-lime-500/10"
+                      : ""
+                  }
+                >
                   Workouts
-                </Link>
-              </li>
-
-              <li>
-                <Link href="/my-plan?tab=plan">
-                  My Plan
                 </Link>
               </li>
 
@@ -83,17 +90,31 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li>
-              <Link href="/">
-                Workouts
-              </Link>
-            </li>
+           <li>
+                <Link
+                  href="/"
+                  className={
+                    isWorkoutsActive
+                      ? "btn text-lime-500 bg-lime-500/10"
+                      : ""
+                  }
+                >
+                  Workouts
+                </Link>
+              </li>
 
-            <li>
-              <Link href="/my-plan?tab=plan">
-                My Plan
-              </Link>
-            </li>
+             <li>
+                <Link
+                  href="/my-plan?tab=plan"
+                  className={
+                    isMyPlanActive
+                      ? "btn text-lime-500 bg-lime-500/10"
+                      : ""
+                  }
+                >
+                  My Plan
+                </Link>
+              </li>
           </ul>
         </div>
 
@@ -107,7 +128,7 @@ export default function Navbar() {
             Plan
 
             {plannedWorkouts.length > 0 && (
-              <span className="badge  bg-lime-500">
+              <span className="badge  bg-lime-500 rounded-4xl">
                 {plannedWorkouts.length}
               </span>
             )}
@@ -120,7 +141,7 @@ export default function Navbar() {
             Saved
 
             {savedWorkouts.length > 0 && (
-              <span className="badge  bg-lime-500">
+              <span className="badge  bg-lime-500 rounded-4xl">
                 {savedWorkouts.length}
               </span>
             )}
