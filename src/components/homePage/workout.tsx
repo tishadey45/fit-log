@@ -3,7 +3,7 @@ import { IWorkout } from "@/types/library.type";
 
 const getWorkouts = async (): Promise<IWorkout[]> => {
   try {
-    const response = await fetch("https://api.abcz.workers.dev/api/fitlog");
+    const response = await fetch("https://api.api-store.workers.dev/api/fitlog");
 
     console.log("Response:", response);
 
