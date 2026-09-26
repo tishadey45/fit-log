@@ -4,14 +4,17 @@ import { usePlan } from "@/context/PlanContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import toast from "react-hot-toast";
 
 type Tab = "plan" | "saved";
+type SortBy = "duration" | "calories" | "rating";
 
 export default function MyPlanPage() {
   const { plannedWorkouts, savedWorkouts, removeFromPlan, removeFromSaved } =
     usePlan();
 
   const [activeTab, setActiveTab] = useState<Tab>("plan");
+  const [sortBy, setSortBy] = useState<SortBy>("duration");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -20,6 +23,21 @@ export default function MyPlanPage() {
   }, []);
 
   const workouts = activeTab === "plan" ? plannedWorkouts : savedWorkouts;
+
+  // Sort current workout list
+  const sortedWorkouts = useMemo(() => {
+    const sorted = [...workouts];
+
+    if (sortBy === "duration") {
+      sorted.sort((a, b) => Number(b.duration) - Number(a.duration));
+    } else if (sortBy === "calories") {
+      sorted.sort((a, b) => Number(b.duration) * 8 - Number(a.duration) * 8);
+    } else if (sortBy === "rating") {
+      sorted.sort((a, b) => Number(b.rating) - Number(a.rating));
+    }
+
+    return sorted;
+  }, [workouts, sortBy]);
 
   const stats = useMemo(() => {
     return workouts.reduce(
@@ -73,7 +91,7 @@ export default function MyPlanPage() {
           </div>
         </div>
 
-        {/* Tabs */}
+        {/* Tabs + Sort */}
         <div className="mb-5 flex items-center justify-between">
           <div className="tabs tabs-boxed rounded-xl bg-base-200 p-1">
             <button
@@ -101,13 +119,18 @@ export default function MyPlanPage() {
             </button>
           </div>
 
-          <div className="hidden items-center text-xs text-base-content/50 sm:flex">
-            <span>Sort By</span>
+          {/* Sort By */}
+          <div className="hidden items-center whitespace-nowrap text-xs text-base-content/50 sm:flex">
+            <span className="shrink-0">Sort By</span>
 
-            <select className="select select-bordered select-xs ml-2 bg-base-200">
-              <option>Duration</option>
-              <option>Name</option>
-              <option>Difficulty</option>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortBy)}
+              className="select select-bordered select-xs ml-2 w-auto bg-base-200"
+            >
+              <option value="duration">Duration</option>
+              <option value="calories">Calories</option>
+              <option value="rating">Rating</option>
             </select>
           </div>
         </div>
@@ -134,7 +157,7 @@ export default function MyPlanPage() {
           </div>
         ) : (
           <div className="space-y-3">
-            {workouts.map((workout) => (
+            {sortedWorkouts.map((workout) => (
               <div
                 key={workout.id}
                 className="flex min-h-22 items-center gap-4 rounded-xl border border-base-content/10 bg-base-200 p-3 transition hover:border-base-content/20"
@@ -172,8 +195,7 @@ export default function MyPlanPage() {
                     </span>
 
                     <span>
-                      <span className="text-lime-400">★</span>{" "}
-                      {workout.difficulty}
+                      <span className="text-lime-400">★</span> {workout.rating}
                     </span>
                   </div>
                 </div>
@@ -189,11 +211,7 @@ export default function MyPlanPage() {
 
                   <button
                     onClick={() => {
-                      if (activeTab === "plan") {
-                        removeFromPlan(workout.id);
-                      } else {
-                        removeFromSaved(workout.id);
-                      }
+                      toast.success(`${workout.name} marked as done!`);
                     }}
                     className="btn btn-sm rounded-full border-0 bg-lime-400 px-4 text-xs font-bold text-black hover:bg-lime-300"
                   >
@@ -208,8 +226,12 @@ export default function MyPlanPage() {
                     onClick={() => {
                       if (activeTab === "plan") {
                         removeFromPlan(workout.id);
+
+                        toast.success(`${workout.name} removed from plan`);
                       } else {
                         removeFromSaved(workout.id);
+
+                        toast.success(`${workout.name} removed from saved`);
                       }
                     }}
                     aria-label={`Remove ${workout.name}`}
