@@ -1,5 +1,5 @@
 import Banner from "@/components/homePage/Banner";
-import Library from "@/components/homePage/Library";
+import Library from "@/components/homePage/workout";
 
 export default function HomePage() {
   return (

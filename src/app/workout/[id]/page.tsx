@@ -1,7 +1,6 @@
-import Image from "next/image";
 import { IWorkout } from "@/types/library.type";
-import { MdAddCard } from "react-icons/md";
-import { BsBookmark } from "react-icons/bs";
+import Image from "next/image";
+import WorkoutActions from "@/components/WorkoutActions";
 
 const getWorkout = async (id: string) => {
   const response = await fetch(
@@ -35,11 +34,11 @@ export default async function WorkoutDetails({
             alt={workout.name}
             width={500}
             height={500}
-            className=" h-full object-cover"
+            className="w-full h-full object-cover"
           />
         </div>
 
-     
+        {/* Details */}
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body">
 
@@ -51,72 +50,94 @@ export default async function WorkoutDetails({
               {workout.description}
             </p>
 
-          
+            {/* Muscle Groups */}
             <div className="flex gap-2 flex-wrap mt-2">
               {workout.muscleGroups.map((muscle) => (
                 <span
                   key={muscle}
-                  className=" bg-lime-500 rounded-4xl px-3 py-1"
+                  className="bg-lime-500 text-black rounded-full px-3 py-1 text-sm"
                 >
                   {muscle}
                 </span>
               ))}
             </div>
 
-         
-            <div className="grid grid-cols-2 gap-3 mt-5">
-              <div className="bg-base-200 p-4 rounded-lg">
-                <p className="text-xs opacity-60">EQUIPMENT</p>
-                <p className="font-semibold">
+            {/* Workout Info */}
+            <div className="mt-5 rounded-lg overflow-hidden bg-base-200">
+
+              <div className="flex justify-between px-4 py-3 border-b border-base-300">
+                <p className="text-xs opacity-60">
+                  EQUIPMENT
+                </p>
+
+                <p className="text-sm font-medium">
                   {workout.equipment}
                 </p>
               </div>
 
-              <div className="bg-base-200 p-4 rounded-lg">
-                <p className="text-xs opacity-60">DIFFICULTY</p>
-                <p className="font-semibold">
+              <div className="flex justify-between px-4 py-3 border-b border-base-300">
+                <p className="text-xs opacity-60">
+                  DIFFICULTY
+                </p>
+
+                <p className="text-sm font-medium">
                   {workout.difficulty}
                 </p>
               </div>
 
-              <div className="bg-base-200 p-4 rounded-lg">
-                <p className="text-xs opacity-60">SETS</p>
-                <p className="font-semibold">
+              <div className="flex justify-between px-4 py-3 border-b border-base-300">
+                <p className="text-xs opacity-60">
+                  SETS
+                </p>
+
+                <p className="text-sm font-medium">
                   {workout.sets}
                 </p>
               </div>
 
-              <div className="bg-base-200 p-4 rounded-lg">
-                <p className="text-xs opacity-60">REPS</p>
-                <p className="font-semibold">
+              <div className="flex justify-between px-4 py-3 border-b border-base-300">
+                <p className="text-xs opacity-60">
+                  REPS
+                </p>
+
+                <p className="text-sm font-medium">
                   {workout.reps}
                 </p>
               </div>
 
-              <div className="bg-base-200 p-4 rounded-lg">
-                <p className="text-xs opacity-60">DURATION</p>
-                <p className="font-semibold">
+              <div className="flex justify-between px-4 py-3 border-b border-base-300">
+                <p className="text-xs opacity-60">
+                  DURATION
+                </p>
+
+                <p className="text-sm font-medium">
                   {workout.duration} min
                 </p>
               </div>
 
-              <div className="bg-base-200 p-4 rounded-lg">
-                <p className="text-xs opacity-60">CALORIES</p>
-                <p className="font-semibold">
+              <div className="flex justify-between px-4 py-3 border-b border-base-300">
+                <p className="text-xs opacity-60">
+                  CALORIES
+                </p>
+
+                <p className="text-sm font-medium">
                   {workout.caloriesBurned} kcal
                 </p>
               </div>
+
+              <div className="flex justify-between px-4 py-3">
+                <p className="text-xs opacity-60">
+                  RATING
+                </p>
+
+                <p className="font-bold">
+                  ⭐ {workout.rating}
+                </p>
+              </div>
+
             </div>
 
-    
-            <div className="mt-4">
-              <p className="text-xs opacity-60">RATING</p>
-              <p className="font-bold text-lg">
-                ⭐ {workout.rating}
-              </p>
-            </div>
-
-        
+            {/* Instructions */}
             <div className="mt-5">
               <h2 className="text-xl font-bold mb-3">
                 INSTRUCTIONS
@@ -129,29 +150,21 @@ export default async function WorkoutDetails({
                       key={index}
                       className="flex gap-3"
                     >
-                      <span className="">
-                        {index + 1}
+                      <span className="font-bold text-lime-500">
+                        {index + 1}.
                       </span>
 
-                      <span>{instruction}</span>
+                      <span>
+                        {instruction}
+                      </span>
                     </li>
                   )
                 )}
               </ol>
             </div>
 
-         
-            <div className="card-actions mt-6">
-              <button className="btn  bg-lime-500 rounded-2xl flex-1">
-                <MdAddCard />
-                 Add to today's plan
-              </button>
-
-              <button className="btn btn-outline flex-1 rounded-2xl">
-                <BsBookmark />
-                 Save for later
-              </button>
-            </div>
+            {/* Buttons */}
+            <WorkoutActions workout={workout} />
 
           </div>
         </div>

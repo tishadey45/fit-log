@@ -17,9 +17,9 @@ export default function Banner() {
           <h1 className="text-4xl font-bold">
             TRAIN WITH INTENT. LOG EVERY SET.
           </h1>
-          <p className="py-6 text-gray-700">
+          <p className="py-6 text-gray-400">
             FitLog is a dark, no-nonsense gym companion: pick a lift, lock it
-            into today's plan, and watch the week's work add up.
+            into todays plan, and watch the weeks work add up.
           </p>
           <button className="btn bg-lime-500 rounded-1xl">BROWSE WORKOUTS</button>
         </div>

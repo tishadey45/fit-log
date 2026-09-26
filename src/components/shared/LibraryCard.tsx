@@ -10,9 +10,9 @@ interface LibraryCardProps {
 export default function LibraryCard({ workout }: LibraryCardProps) {
   return (
     <Link href={`/workout/${workout.id}`}>
-      <div className="group h-full overflow-hidden rounded-2xl bg-[#111] shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <div className="group h-full  overflow-hidden rounded-2xl bg-[#111] shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
         {/* Image */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden">
+        <div className="relative aspect-4/3 w-full overflow-hidden">
           <Image
             src={workout.image}
             alt={workout.name}
@@ -36,7 +36,7 @@ export default function LibraryCard({ workout }: LibraryCardProps) {
             ))}
           </div>
 
-          {/* Workout Name */}
+          
           <h2 className="text-xl font-bold uppercase text-white">
             {workout.name}
           </h2>
