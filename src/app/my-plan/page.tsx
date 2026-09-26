@@ -19,6 +19,7 @@ export default function MyPlanPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setActiveTab(params.get("tab") === "saved" ? "saved" : "plan");
   }, []);
 
